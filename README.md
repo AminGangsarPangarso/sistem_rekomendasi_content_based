@@ -1,0 +1,2 @@
+# sistem_rekomendasi_content_based
+HANYA UNTUK MAHASISWA AMIKOM. KAMPUS LAIN MINTA BAPAKMU

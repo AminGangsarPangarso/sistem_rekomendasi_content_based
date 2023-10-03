@@ -1,6 +1,6 @@
 <?php
+include 'koneksi.php';
 
-$mysql = new Mysqli("localhost","root","","cb");
 $id = $_GET["id"];
 $ambil = $mysql->query("SELECT * FROM dataset WHERE 
                     id='$id'");
@@ -24,9 +24,12 @@ while($tiap = $pungut->fetch_assoc())
   $abstrak_ini = strtolower($abstrak_ini);
 
 
-  //hitung kemiripan abstrak ini dan itu
-  similar_text($abstrak_ini, $abstrak_itu, $prosentase);
-  $tiap['prosentase'] = $prosentase;
+  //A. hitung kemiripan abstrak ini dan itu pakai similar text
+  // similar_text($abstrak_ini, $abstrak_itu, $prosentase);
+  // $tiap['prosentase'] = $prosentase;
+
+  //B.hitung kemiripan pakai cosine 
+  $tiap['prosentase'] = kemiripan_cosine($abstrak_itu,$abstrak_ini);
 
   $paperlain[] = $tiap;
 }
@@ -67,7 +70,8 @@ usort($paperlain, function($a, $b) {
             <?php foreach ($paperlain as $key => $p): ?>
               <li>
                 <a href="detail.php?id=<?php echo $p['id'] ?>">
-                  <?php echo $p['judul'] ?>
+                  <?php echo $p['judul'] ?> <br>
+                  <?php print($p['prosentase']) ?>
                 </a>
               </li>
             <?php endforeach ?>

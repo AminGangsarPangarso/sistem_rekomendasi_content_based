@@ -1,6 +1,5 @@
 <?php
-
-$mysql = new Mysqli("localhost","root","","cb");
+include 'koneksi.php';
 
 $dataset = array();
 $ambil = $mysql->query("SELECT * FROM dataset");
